@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Geuss RGB color</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <div id="random-btn" style="text-align:center;margin: 8px;">
+            <button style="padding: 4px;" @click="generateRandomColor()">Generate Random Color</button>
+        </div>
+        <div class="animated flash " id="rgb-color" :style="{background:'rgb('+red+','+green+','+blue+')'}">
+
+
+        </div>
+        <div style="text-align: center;margin: 8px;">
+            <span>What is the value of this color in RGB
+                ?</span>
+            <div id="msgPlay">
+                <span v-bind:class="{'animated pulse infinite': !guessResult.cal}">Enter RGB values(0 - 255)
+                    And press GUESS</span>
+            </div>
+        </div>
+
+        <div id="main">
+            <div>
+                <span :style="{background:'rgb('+gusessNumber.red+','+0+','+0+')'}">RED</span>
+                <input type="number" @input="guessResult.cal=false" v-model.number="gusessNumber.red">
+            </div>
+
+            <div>
+                <span :style="{background:'rgb('+0+','+gusessNumber.green+','+0+')'}">GREEN</span>
+                <input type="number" @input="guessResult.cal=false" v-model.number="gusessNumber.green">
+            </div>
+
+            <div>
+                <span :style="{background:'rgb('+0+','+0+','+gusessNumber.blue+')'}">BLUE</span>
+                <input type="number" @input="guessResult.cal=false" v-model.number="gusessNumber.blue">
+            </div>
+        </div>
+
+        <div id="guessBtn" style="text-align: center;margin: 4px;">
+            <button @click="guess()">GUESS</button>
+        </div>
+
+        <div class="animated shake" v-if="guessResult.cal" id="guess-color"
+            :style="{background:'rgb('+gusessNumber.red+','+gusessNumber.green+','+gusessNumber.blue+')'}">
+            <div id="resMsg" v-if="showResult" class="animated zoomIn">
+                <span>R:{{guessResult.dr}}%</span>
+                <span>G:{{guessResult.dg}}%</span>
+                <span>B:{{guessResult.db}}%</span>
+            </div>
+            <div v-if="!showResult" style="background-color: black;color:white;">R:{{red}} G:{{green}} B:{{blue}}
+            </div>
+
+        </div>
+
+
+        <div id="guess-result" class="zoomIn animated" v-if="showResult">
+            <span>CORRECT : {{guessResult.correct}}%</span>
+        </div>
+        <div style="text-align: center;margin: 4px" v-if="!guessResult.isCorrect">
+            <button @click="showCorrect()">Show Answer</button>
+        </div>
+
+
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>
